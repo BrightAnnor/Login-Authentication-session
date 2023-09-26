@@ -25,11 +25,11 @@ app.get('/',(req,res)=>{
 app.post('/register',async(req,res)=>{
 
     try {
-        // const {password} = req.body
-        const result = User.create({first_name,last_name,email,password})
-        console.log(result)
+        const {first_name,last_name,email,password} = req.body
+        const result = await User.create({first_name,last_name,email,password})
+        res.send(result)
     } catch (error) {
-        
+        console.log(error)
     }   
 
 })
