@@ -7,8 +7,18 @@ dotenv.config();
 //server port
 const port = process.env.port
 
+
 //creating server
 const app = express();
+
+app.get('/',(req,res)=>{
+    res.send('hello')
+})
+
+//creating account
+app.post('/register',(req,res)=>{
+
+})
 
 const startServer = ()=>{
     try {
