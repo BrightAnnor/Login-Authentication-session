@@ -17,6 +17,7 @@ app.get('/',(req,res)=>{
     res.send('hello')
 })
 
+
 //creating account
 app.post('/register',(req,res)=>{
 
