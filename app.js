@@ -31,9 +31,13 @@ app.post('/register',async(req,res)=>{
         // hashing password
         const hashPassword = await bcrypt.hash(password,10)
         const result = await User.create({first_name,last_name,email,'password':hashPassword})
-        res.send(result)
+        
+        if(result)
+        return res.send('Account created Successfully')
+
+        res.send('Unable to Create Account')
     } catch (error) {
-        console.log(error)
+        res.send('Unable to Handle Request currently, try again');
     }   
 
 })
