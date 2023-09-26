@@ -6,6 +6,7 @@ dotenv.config();
 
 const dbConnect = require('./dbConnect')
 const User = require('./user')
+const bcrypt = require('bcrypt');
 
 //server port
 const port = process.env.port
@@ -26,7 +27,10 @@ app.post('/register',async(req,res)=>{
 
     try {
         const {first_name,last_name,email,password} = req.body
-        const result = await User.create({first_name,last_name,email,password})
+
+        // hashing password
+        const hashPassword = await bcrypt.hash(password,10)
+        const result = await User.create({first_name,last_name,email,'password':hashPassword})
         res.send(result)
     } catch (error) {
         console.log(error)
