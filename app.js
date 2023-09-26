@@ -40,6 +40,28 @@ app.post('/register',async(req,res)=>{
         res.send('Unable to Handle Request currently, try again');
     }   
 
+});
+
+//  login into an account
+app.post('/login',async (req,res)=>{
+    try {
+        const {email,password} = req.body
+        // determine if there is such a user in the database
+        const result = await User.findOne({where:{email}}) 
+        if(!result) return res.send('Invalid Credentials, try again')
+        
+        const userCorrectPassword = result.password
+        //compare hashed password with the curerent password
+        const isPasswordCorrect = await bcrypt.compare(password,userCorrectPassword)
+        
+        if(!isPasswordCorrect)
+         return res.send('Invalid Credentials,try again')
+
+         res.send('Login Successfully')
+
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 const startServer = ()=>{
