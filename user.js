@@ -1,7 +1,8 @@
 const dbConnect = require('./dbConnect')
-const {DataTypes,Sequelize, INTEGER} = require('sequelize')
+const {DataTypes,Sequelize} = require('sequelize')
 
-const User = dbConnect.define('users',{
+const User = dbConnect.define('users',
+{
     id:{
         primaryKey:true,
         autoIncrement:true,
