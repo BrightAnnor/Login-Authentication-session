@@ -4,16 +4,24 @@ const dotenv = require('dotenv');
 //configuration
 dotenv.config();
 
-const dbConnect = require('./dbConnect')
-const User = require('./user')
+const dbConnect = require('./dbConnect');
+const User = require('./user');
 const bcrypt = require('bcrypt');
+const expressSession = require('express-session');
 
 //server port
 const port = process.env.port
-
+const API_SECRET = process.env.API_SECRET
 
 //creating server
 const app = express();
+//setting session to keep track of user
+app.use(expressSession({
+    secret:API_SECRET,
+    resave:false,
+    saveUninitialized:true,
+    cookie:{}
+}))
 
 app.use(express.urlencoded({extended:false}))
 
@@ -57,10 +65,21 @@ app.post('/login',async (req,res)=>{
         if(!isPasswordCorrect)
          return res.send('Invalid Credentials,try again')
 
-         res.send('Login Successfully')
+         res.send('Login Successfully');
 
     } catch (error) {
         console.log(error)
+    }
+});
+
+
+
+//User Home Page
+app.get('/home-page',(req,res)=>{
+    try {
+        
+    } catch (error) {
+        res.send('Unable to Handle Request')
     }
 })
 
